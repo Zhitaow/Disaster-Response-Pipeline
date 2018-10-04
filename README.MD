@@ -39,7 +39,7 @@ Loads data from the SQLite database
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+        `python data/process_data.py data/messages.csv data/categories.csv data/DisasterResponse.db`
     - To run ML pipeline that trains classifier and saves
         `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
 
@@ -50,15 +50,15 @@ Loads data from the SQLite database
 
 # File Descriptions <a name="files"></a>
 
-**dev/ETL Pipeline Preparation.ipynb**
+#### dev/ETL Pipeline Preparation.ipynb
 
 A Jupyter Notebook with all the steps to developing ETL pipeline.
 
-**dev/ML Pipeline Preparation.ipynb**
+#### dev/ML Pipeline Preparation.ipynb
 
 A Jupyter Notebook with all the steps to developing machine learning pipeline.
 
-**data/process_data.py**
+#### data/process_data.py 
 
 a data cleaning pipeline that:
 
@@ -67,7 +67,7 @@ a data cleaning pipeline that:
 - Cleans the data
 - Stores it in a SQLite database
 
-**model/train_classifier.py**
+#### model/train_classifier.py
 
 a machine learning pipeline that:
 
@@ -78,9 +78,9 @@ a machine learning pipeline that:
 - Outputs results on the test set
 - Exports the final model as a pickle file
 
-**app**
+#### app
 
-the flask web app, containing python scripts, html, css, javascript files.
+the folder of flask web app, containing all python scripts, html, css, javascript files.
 
 
 

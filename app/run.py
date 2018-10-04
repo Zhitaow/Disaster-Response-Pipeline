@@ -26,7 +26,7 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/figure_eight.db')
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('msg_cat', engine)
 cat1_counts = df.iloc[:, 4:].sum().sort_values(ascending = False)
 cat0_counts = df.shape[0] - cat1_counts
