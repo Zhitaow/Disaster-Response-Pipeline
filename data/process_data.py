@@ -95,6 +95,13 @@ def clean_data(df):
         categories.iloc[irow,:] = cat_array
     # impute values that are not 0 or 1 with the mode in the corresponding column
     sanity_check(categories)
+    # drop categories that contain 100% of 1s or 0s
+    cat1 = categories.sum()/categories.shape[0]
+    cat0 = 1 - cat1
+    col_todrop = cat1[(cat1 == 0) | (cat1 == 1)].index.values.tolist()
+    for col in col_todrop:
+        print("drop categories that contain 100% of 1s or 0s: {}".format(col))
+    categories.drop(labels = col_todrop, axis = 1, inplace = True)
     # drop the original categories column from `df`
     df.drop(labels = 'categories', axis = 1, inplace = True)
     # concatenate the original dataframe with the new `categories` dataframe

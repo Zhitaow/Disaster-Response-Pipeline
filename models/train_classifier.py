@@ -41,7 +41,7 @@ def load_data(database_filepath):
     conn.commit()
     conn.close()
     print('Connection is closed.')
-    feature_columns = ['message', 'original', 'genre', 'child_alone']
+    feature_columns = ['message', 'original', 'genre']
     X = df['message'].values
     y = df.drop(labels = feature_columns, axis = 1).values
     category_names = df.columns.values
