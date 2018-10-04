@@ -47,3 +47,41 @@ Loads data from the SQLite database
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+# File Descriptions <a name="files"></a>
+
+**dev/ETL Pipeline Preparation.ipynb**
+
+A Jupyter Notebook with all the steps to developing ETL pipeline.
+
+**dev/ML Pipeline Preparation.ipynb**
+
+A Jupyter Notebook with all the steps to developing machine learning pipeline.
+
+**data/process_data.py**
+
+a data cleaning pipeline that:
+
+- Loads the messages and categories datasets
+- Merges the two datasets
+- Cleans the data
+- Stores it in a SQLite database
+
+**model/train_classifier.py**
+
+a machine learning pipeline that:
+
+- Loads data from the SQLite database
+- Splits the dataset into training and test sets
+- Builds a text processing and machine learning pipeline
+- Trains and tunes a model using GridSearchCV
+- Outputs results on the test set
+- Exports the final model as a pickle file
+
+**app**
+
+the flask web app, containing python scripts, html, css, javascript files.
+
+
+
+
