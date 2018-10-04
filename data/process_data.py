@@ -44,6 +44,27 @@ def deduplicate(df):
         df = df[~df_duplicated]
     return
 
+# sanity check on the values in each column
+def sanity_check(df):
+    '''
+    Usage: Check if there is any value other than 0 or 1 for each column.
+    '''
+    flag = False
+    for col in df.columns:
+        value_set = set(df[col].unique())
+        if (value_set - set([0, 1])):
+            flag = True
+            print("The column '{}' contains additional values: {}".format(col,value_set))
+            idx = (~df[col].isin([0, 1]))
+            print("There are {} out of {} ({}%) in the 'related' column" \
+              .format(df[idx].shape[0], df.shape[0], 
+                      df[idx].shape[0]/df.shape[0]*100))
+            #print("Impute the abnormal value with the mode {} in this column.".format(df[col].mode()[0]))
+            #df.loc[idx, col] = df[col].mode()[0]
+    if flag is False:
+        print("All data entries are either 0 or 1 in the dataset")
+    return
+
 def clean_data(df):
     '''
     Usage: merge two datasets of messages categories, and transform into one dataframe with customized format
@@ -55,7 +76,7 @@ def clean_data(df):
         a cleaned dataframe
     '''
     # create a dataframe of the 36 individual category columns
-    categories = pd.DataFrame(data = np.zeros((df.shape[0], 36), dtype = int))
+    categories = pd.DataFrame(data = np.zeros((df.shape[0], 36), dtype = float))
     # split categories into separate category columns
     category_colnames = df.iloc[0] \
                         .str.split(';', expand = True).loc['categories'].apply(lambda x : x.split('-')[0])
@@ -69,9 +90,11 @@ def clean_data(df):
         # only keep the last letter, which is "1" or "0"
         cat_list = [x[-1] for x in cat_list]
         # convert from list to integer array
-        cat_array = np.array(cat_list).astype(int)
+        cat_array = np.array(cat_list).astype(float)
         # set array values to categories dataframe by row index
         categories.iloc[irow,:] = cat_array
+    # impute values that are not 0 or 1 with the mode in the corresponding column
+    sanity_check(categories)
     # drop the original categories column from `df`
     df.drop(labels = 'categories', axis = 1, inplace = True)
     # concatenate the original dataframe with the new `categories` dataframe
@@ -79,6 +102,8 @@ def clean_data(df):
     print('Removing duplicated values.')
     # duplication
     deduplicate(df)
+    print('remove message where the related category is flagged as 2.')
+    df = df[df.related != 2]
     return df
     
 
