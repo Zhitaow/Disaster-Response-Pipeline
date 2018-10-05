@@ -1,10 +1,12 @@
 import json
 import plotly
 import pandas as pd
-
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar, Pie
@@ -15,9 +17,12 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 
 def tokenize(text):
+    ''' Usage: normalize case and remove punctuation
+        Args: text string
+        Return: text tokens
+    ''' 
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
-
     clean_tokens = []
     for tok in tokens:
         clean_tok = lemmatizer.lemmatize(tok).lower().strip()
@@ -28,12 +33,7 @@ def tokenize(text):
 # load data
 engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('msg_cat', engine)
-cat1_counts = df.iloc[:, 4:].sum().sort_values(ascending = False)
-cat0_counts = df.shape[0] - cat1_counts
-cat1_pcts = cat1_counts/df.shape[0]*100
-cat0_pcts = 100 - cat1_pcts
-cat_names = list(cat0_counts.index)
-# load model
+# load saved model
 model = joblib.load("../models/classifier.pkl")
 
 
@@ -41,12 +41,24 @@ model = joblib.load("../models/classifier.pkl")
 @app.route('/')
 @app.route('/index')
 def index():
-    
+    '''
+    Usage: format and display 4 plots: 
+           1. count distribution of message genres, 
+           2. percentage distribution of message genres
+           3. count distribution of disaster categories
+           4. percentage distribution of disaster categories
+    Return: a block of dynamic html codes that can be rendered to the plots
+    '''
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
-    
+    cat1_counts = df.iloc[:, 4:].sum().sort_values(ascending = False)
+    cat0_counts = df.shape[0] - cat1_counts
+    cat1_pcts = cat1_counts/df.shape[0]*100
+    cat0_pcts = 100 - cat1_pcts
+    cat_names = list(cat0_counts.index)
+
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
@@ -152,6 +164,11 @@ def index():
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
+    '''
+    Usage: User queries an input of text from the front end to backend. 
+           The text is then processed and fed into trained ML model to predict categories.
+    Return: a block of dynamic html codes that can be rendered to show a list of predicted classified categories
+    '''
     # save user input in query
     query = request.args.get('query', '') 
 
@@ -168,6 +185,9 @@ def go():
 
 
 def main():
+    '''
+    This is the main entry to start the web app.
+    '''
     app.run(host='0.0.0.0', port=3001, debug=True)
 
 
