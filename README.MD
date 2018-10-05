@@ -1,33 +1,33 @@
 # Udacity Data Science Nanodegree
 ## Data Engineering Project: Disaster-Response-Pipeline
 
-### To view the number of commits, as required by Udacity grading rubric, you can follow my Github link here: https://github.com/Zhitaow/Disaster-Response-Pipeline.git
+### To view the number of commits, as required by Udacity grading rubric, you can follow my Github link [Here] (https://github.com/Zhitaow/Disaster-Response-Pipeline.git)
 
 ### Project Overview
-In this course, you've learned and built on your data engineering skills to expand your opportunities and potential as a data scientist. In this project, you'll apply these skills to analyze disaster data from Figure Eight to build a model for an API that classifies disaster messages.
+In this course, I've learned and built on my data engineering skills to expand my opportunities and potential as a data scientist. In this project, I applied these skills to analyze disaster data from Figure Eight to build a model for an API that classifies disaster messages.
 
-In the Project Workspace, you'll find a data set containing real messages that were sent during disaster events. You will be creating a machine learning pipeline to categorize these events so that you can send the messages to an appropriate disaster relief agency.
+This repository contains data set of real messages that were sent during disaster events, courtesty by [Figure Eight] (https://www.figure-eight.com/data-for-everyone/). My motivation is to create a machine learning pipeline to categorize these events so that user can send the messages to an appropriate disaster relief agency.
 
-Your project will include a web app where an emergency worker can input a new message and get classification results in several categories. The web app will also display visualizations of the data. This project will show off your software skills, including your ability to create basic data pipelines and write clean, organized code!
+My project includes a web app where an emergency worker can input a new message and get classification results in several categories. The web app will also display visualizations of the data.
 
-Below are a few screenshots of the web app.
+The animation below is a demo of my web app.
 ![Alt text](/img/ScreenDemo.gif)
 
 ### Project Components
-There are three components you'll need to complete for this project.
+There are three major parts in this project: 
 
 1. ETL Pipeline
-In a Python script, **process_data.py**, write a data cleaning pipeline that:
+The Python script, **process_data.py**, runs a data cleaning pipeline that:
 
 - Loads the messages and categories datasets
-- Merges the two datasets
+- Merges the two datasets, disaster_messages.csv and disaster_categories.csv
 - Cleans the data
 - Stores it in a SQLite database
 
 2. ML Pipeline
-- In a Python script, **train_classifier.py**, write a machine learning pipeline that:
+The Python script, **train_classifier.py**, runs a machine learning pipeline that:
 
-Loads data from the SQLite database
+- Loads data from the SQLite database
 - Splits the dataset into training and test sets
 - Builds a text processing and machine learning pipeline
 - Trains and tunes a model using GridSearchCV
@@ -35,8 +35,11 @@ Loads data from the SQLite database
 - Exports the final model as a pickle file
 
 3. Flask Web App
-- Use bootstrap to design a dynamic webpage
-- Add data visualizations using Plotly in the web app
+This web application designed with bootstrap to:
+
+- process and visualize the cleaned data using Plotly
+- classifer message from user input, and display the predicted disaster categories
+
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
@@ -52,28 +55,36 @@ Loads data from the SQLite database
 3. Go to http://0.0.0.0:3001/
 
 # File Descriptions <a name="files"></a>
+The development of this project contains four folders corresponding to different stage in development:
 
-#### dev/ETL Pipeline Preparation.ipynb
+### /dev contains:
 
-A Jupyter Notebook with all the steps to developing ETL pipeline.
+**ETL Pipeline Preparation.ipynb**
+- A Jupyter Notebook with all the steps to developing ETL pipeline.
 
-#### dev/ML Pipeline Preparation.ipynb
+**ML Pipeline Preparation.ipynb**
+- A Jupyter Notebook with all the steps to developing machine learning pipeline.
 
-A Jupyter Notebook with all the steps to developing machine learning pipeline.
+**helper.py**
+- A python script that provide a few helper functions for exploratory analysis in the notebook files.
 
-#### data/process_data.py 
+### /data contains:
 
-a data cleaning pipeline that:
-
+**process_data.py**
+an ETL pipeline that cleans the data and prepare it for training the ML model:
 - Loads the messages and categories datasets
 - Merges the two datasets
 - Cleans the data
 - Stores it in a SQLite database
 
-#### model/train_classifier.py
+**disaster_messages.csv**
+- A csv file containing the messages during the disaster
+**disaster_categories.csv**
+- A csv file containing 30 disaster types of messages
 
-a machine learning pipeline that:
-
+### /models contains:
+**train_classifier.py**
+a machine learning pipeline that trains the classifier using pipeline and gridsearch, and finally save the optimal model to a pickle file:
 - Loads data from the SQLite database
 - Splits the dataset into training and test sets
 - Builds a text processing and machine learning pipeline
@@ -81,9 +92,13 @@ a machine learning pipeline that:
 - Outputs results on the test set
 - Exports the final model as a pickle file
 
-#### app
-
-the folder of flask web app, containing all python scripts, html, css, javascript files.
+### /app
+**run.py**
+- A flask app that load and process the data, and render the contents into dynamic webpage.
+**templates/master.html** 
+- The index webpage where the major contents, four graphs of data distribution, will be rendered.
+**templates/go.html**
+- A segment of extension codes, showing list of classified message type, to be inserted to master.html.
 
 
 
