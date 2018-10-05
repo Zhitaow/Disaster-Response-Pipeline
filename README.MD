@@ -1,12 +1,12 @@
 # Udacity Data Science Nanodegree
 ## Data Engineering Project: Disaster-Response-Pipeline
 
-### To view the number of commits, as required by Udacity grading rubric, you can follow my Github link [Here] (https://github.com/Zhitaow/Disaster-Response-Pipeline.git)
+### To view the number of commits, as required by Udacity grading rubric, you can follow my Github link [Here](https://github.com/Zhitaow/Disaster-Response-Pipeline.git)
 
 ### Project Overview
 In this course, I've learned and built on my data engineering skills to expand my opportunities and potential as a data scientist. In this project, I applied these skills to analyze disaster data from Figure Eight to build a model for an API that classifies disaster messages.
 
-This repository contains data set of real messages that were sent during disaster events, courtesty by [Figure Eight] (https://www.figure-eight.com/data-for-everyone/). My motivation is to create a machine learning pipeline to categorize these events so that user can send the messages to an appropriate disaster relief agency.
+This repository contains data set of real messages that were sent during disaster events, courtesty by [Figure Eight](https://www.figure-eight.com/data-for-everyone/). My motivation is to create a machine learning pipeline to categorize these events so that user can send the messages to an appropriate disaster relief agency.
 
 My project includes a web app where an emergency worker can input a new message and get classification results in several categories. The web app will also display visualizations of the data.
 
